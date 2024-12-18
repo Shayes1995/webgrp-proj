@@ -8184,7 +8184,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 8.0.0",
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.3"
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.4"
     ]
   },
   "packageFolders": {
@@ -8267,7 +8267,7 @@
           },
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
-            "version": "[8.0.3, )"
+            "version": "[8.0.4, )"
           }
         },
         "imports": [
@@ -8292,17 +8292,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "GroupProject depends on Npgsql.EntityFrameworkCore.PostgreSQL (>= 8.0.3) but Npgsql.EntityFrameworkCore.PostgreSQL 8.0.3 was not found. An approximate best match of Npgsql.EntityFrameworkCore.PostgreSQL 8.0.4 was resolved.",
-      "libraryId": "Npgsql.EntityFrameworkCore.PostgreSQL",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

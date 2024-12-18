@@ -1,0 +1,34 @@
+@model ProductsIndexVm;
+<h1>Products</h1>
+
+<p>Here we will list all products</p>
+
+<!-- <a href="/Products/Create">Create new product</a> -->
+<p>
+    @Html.ActionLink("Create new product", "Create")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Product)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>
+                    <a href="/Products/Edit/@product.Id">@product.Name</a>
+                </td>
+                <td>@product.Price</td>
+                <td>@product.Description</td>
+                <td>@product.Category</td>
+            </tr>
+        }
+    </tbody>
+</table>

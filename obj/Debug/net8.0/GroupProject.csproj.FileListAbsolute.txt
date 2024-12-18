@@ -255,3 +255,4 @@ C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\refint\GroupPro
 C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\GroupProject.pdb
 C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\GroupProject.genruntimeconfig.cache
 C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\ref\GroupProject.dll
+C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\GroupProject.sourcelink.json

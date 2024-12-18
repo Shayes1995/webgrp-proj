@@ -1,0 +1,31 @@
+@model ProductCreateVm;
+<h1>Create Products</h1>
+
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Product.Name">Name</label>
+        <input asp-for="Product.Name" type="text" class="form-control">
+        <span asp-validation-for="Product.Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.Price">Price</label>
+        <input asp-for="Product.Price" type="number" class="form-control">
+        <span asp-validation-for="Product.Price"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Product.Description">Description</label>
+        <textarea asp-for="Product.Description" type="text" class="form-control"></textarea>
+        <span asp-validation-for="Product.Description"></span>
+    </div>
+    @foreach (var category in Model.Categories)
+    {
+        <div class="form-check">
+            <input type="radio" name="Product.CategoryId" value="@category.Id" id="@category.Id" class="form-check-input">
+            <label for="@category.Id" class="form-check-label">@category.Name</label>
+        </div>
+    }
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Add product</button>
+    </div>
+</form>

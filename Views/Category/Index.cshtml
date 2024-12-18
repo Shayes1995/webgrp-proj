@@ -1,0 +1,20 @@
+@model CategoryIndexVm;
+
+<h1>Categories</h1>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Category name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model.Categories)
+        {
+            <tr>
+                <td>@category.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
