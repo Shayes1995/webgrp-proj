@@ -17,7 +17,15 @@
         @foreach (var category in Model.Categories)
         {
             <tr>
-                <td>@category.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@category.Id">
+                        @category.Name
+                    </a>
+                </td>
+                <td><button type="button" class="btn btn-danger">
+                        <a asp-action="Delete" asp-route-id="@category.Id"
+                            style="color: white; text-decoration: none;">Delete</a>
+                    </button></td>
             </tr>
         }
     </tbody>

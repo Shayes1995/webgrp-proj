@@ -62,17 +62,86 @@ public class ProductsController(ApplicationDbContext context) : Controller
         return View(productVm);
     }
 
-    public IActionResult Edit(int? id)
+    public async Task<IActionResult> EditAsync(int? id)
     {
         if (id == null)
         {
             return NotFound();
         }
 
+        var product = await context.Products!.FindAsync(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
+
+        var categories = await context.Categories!.ToListAsync();
+
         var vm = new ProductsEditVm
         {
-            ProductId = id.Value
+            Product = product,
+            Categories = categories
+        };
+
+        return View(vm);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(ProductsEditVm productVm)
+    {
+        var product = productVm.Product;
+        if (ModelState.IsValid)
+        {
+            if (!ProductExists(product.Id))
+            {
+                return NotFound();
+            }
+
+            context.Update(product);
+            await context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        return View(productVm);
+    }
+
+
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var product = await context.Products!
+        .FirstOrDefaultAsync(m => m.Id == id);
+
+        if (product == null)
+        {
+            return NotFound();
+        }
+
+        var vm = new ProductDeleteVm
+        {
+            Product = product
         };
         return View(vm);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public async Task<IActionResult> DeleteConfirm(int id)
+    {
+        var product = await context.Products!.FindAsync(id);
+        if (product == null)
+        {
+            return NotFound();
+        }
+        context.Products!.Remove(product);
+        await context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+    private bool ProductExists(int id)
+    {
+        return context.Products!.Any(e => e.Id == id);
     }
 }

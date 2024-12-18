@@ -23,11 +23,18 @@
             <tr>
                 <td>@product.Id</td>
                 <td>
-                    <a href="/Products/Edit/@product.Id">@product.Name</a>
+                    <a asp-action="Edit" asp-route-id="@product.Id">
+                        @product.Name
+
+                    </a>
                 </td>
                 <td>@product.Price</td>
                 <td>@product.Description</td>
                 <td>@product.Category?.Name</td>
+                <td><button type="button" class="btn btn-danger">
+                        <a asp-action="Delete" asp-route-id="@product.Id"
+                            style="color: white; text-decoration: none;">Delete</a>
+                </button></td>
             </tr>
         }
     </tbody>

@@ -4,5 +4,6 @@ namespace GroupProject.ViewModels;
 
 public class ProductsEditVm
 {
-    public required int ProductId { get; set; }
+    public required Product Product { get; set; }
+    public List<Category> Categories { get; set; } = new();
 }
