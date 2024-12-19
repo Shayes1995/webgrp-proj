@@ -2,12 +2,14 @@ using GroupProject.Models;
 using GroupProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GroupProject.Controllers;
 
 public class ProductsController(ApplicationDbContext context) : Controller
 {
 
+    
     public async Task<IActionResult> Index()
     {
         var products = await context.Products!
@@ -87,6 +89,8 @@ public class ProductsController(ApplicationDbContext context) : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize(Roles = RoleConstants.Admin)]
     public async Task<IActionResult> Edit(ProductsEditVm productVm)
     {
         var product = productVm.Product;
@@ -129,6 +133,8 @@ public class ProductsController(ApplicationDbContext context) : Controller
     }
 
     [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    [Authorize(Roles = RoleConstants.Admin)]
     public async Task<IActionResult> DeleteConfirm(int id)
     {
         var product = await context.Products!.FindAsync(id);

@@ -1,12 +1,22 @@
 @model ProductsIndexVm;
+@inject UserService UserService;
+@{
+    var isAdmin = await UserService.IsAdminAsync();
+    var isUser = User.Identity?.IsAuthenticated ?? false;
+}
+
 <h1>Products</h1>
 
 <p>Here we will list all products</p>
 
 <!-- <a href="/Products/Create">Create new product</a> -->
-<p>
-    @Html.ActionLink("Create new product", "Create")
-</p>
+@if (isAdmin)
+{
+    <p>
+        @Html.ActionLink("Create new product", "Create")
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -23,18 +33,36 @@
             <tr>
                 <td>@product.Id</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@product.Id">
+                    @if (isAdmin)
+                    {
+                        <a asp-action="Edit" asp-route-id="@product.Id">
+                            @product.Name
+                        </a>
+                    }
+                    else
+                    {
                         @product.Name
-
-                    </a>
+                    }
                 </td>
                 <td>@product.Price</td>
                 <td>@product.Description</td>
                 <td>@product.Category?.Name</td>
-                <td><button type="button" class="btn btn-danger">
-                        <a asp-action="Delete" asp-route-id="@product.Id"
-                            style="color: white; text-decoration: none;">Delete</a>
-                </button></td>
+                @if (isAdmin)
+                {
+                    <td><button type="button" class="btn btn-danger">
+                            <a asp-action="Delete" asp-route-id="@product.Id"
+                                style="color: white; text-decoration: none;">Delete</a>
+                        </button></td>
+                }
+                @if (isUser && !isAdmin)
+                {
+                    <td>
+                        <form asp-action="AddToMyList" asp-controller="User" method="post">
+                            <input type="hidden" name="productId" value="@product.Id">
+                            <button type="submit" class="btn btn-primary">Add to list</button>
+                        </form>
+                    </td>
+                }
             </tr>
         }
     </tbody>

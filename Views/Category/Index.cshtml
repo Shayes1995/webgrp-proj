@@ -1,10 +1,18 @@
 @model CategoryIndexVm;
+@inject UserService UserService;
+@{
+    var isAdmin = await UserService.IsAdminAsync();
+}
 
 <h1>Categories</h1>
 
-<p>
-    @Html.ActionLink("Create new category", "Create")
-</p>
+@if (isAdmin)
+{
+    <p>
+        @Html.ActionLink("Create new category", "Create")
+    </p>
+
+}
 
 
 <table>
@@ -18,14 +26,25 @@
         {
             <tr>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@category.Id">
-                        @category.Name
-                    </a>
+                    @if (isAdmin)
+                    {
+                        <a asp-action="Edit" asp-route-id="@category.Id">
+                            @category.Name
+                        </a>
+                    } else {
+                    @category.Name
+                    }
                 </td>
-                <td><button type="button" class="btn btn-danger">
-                        <a asp-action="Delete" asp-route-id="@category.Id"
-                            style="color: white; text-decoration: none;">Delete</a>
-                    </button></td>
+                <td>
+                    @if (isAdmin)
+                    {
+                        <button type="button" class="btn btn-danger">
+                            <a asp-action="Delete" asp-route-id="@category.Id"
+                                style="color: white; text-decoration: none;">Delete</a>
+                        </button>
+                    }
+
+                </td>
             </tr>
         }
     </tbody>

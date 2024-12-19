@@ -8,6 +8,8 @@ namespace GroupProject.Controllers;
 
 public class CategoryController(ApplicationDbContext context) : Controller
 {
+
+    [Authorize(Roles = RoleConstants.Admin)]
     public async Task<IActionResult> Index()
     {
         var categories = await context.Categories!.ToListAsync();
@@ -26,6 +28,8 @@ public class CategoryController(ApplicationDbContext context) : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize(Roles = RoleConstants.Admin)]
     public async Task<IActionResult> CreateAsync(CategoryCreateVm categoryVm)
     {
         if (ModelState.IsValid)
@@ -60,6 +64,8 @@ public class CategoryController(ApplicationDbContext context) : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Authorize(Roles = RoleConstants.Admin)]
     public async Task<IActionResult> Edit(CategoryEditVm categoryVm)
     {
         var category = categoryVm.Category;
@@ -101,6 +107,8 @@ public class CategoryController(ApplicationDbContext context) : Controller
 
 
     [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    [Authorize(Roles = RoleConstants.Admin)]
     public async Task<IActionResult> DeleteConfirm(int id)
     {
         var category = await context.Categories!.FindAsync(id);

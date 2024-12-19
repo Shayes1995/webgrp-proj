@@ -11,7 +11,14 @@
 </head>
 
 <body>
+
+    @inject UserService UserService;
+    @{
+        var isAdmin = await UserService.IsAdminAsync();
+        var isUser = User.Identity?.IsAuthenticated ?? false;
+    }
     <header>
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Shopping list</a>
@@ -24,19 +31,43 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home"
                                 asp-action="Privacy">Privacy</a>
-                        </li>
+                        </li>-->
                         <!--Länk till Products och category i menyn -->
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products"
                                 asp-action="Index">Products</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Category"
-                                asp-action="Index">Category</a>
-                        </li>
+                        @if (isAdmin)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Category"
+                                    asp-action="Index">Category</a>
+                            </li>
+                        }
+                        @if (!User.Identity?.IsAuthenticated ?? false)
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            </li>
+
+                        }
+                        <!--Logga in och registrera sig -->
+                        @if (isUser && !isAdmin)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">My
+                                    Shopping List</a>
+                            </li>
+
+                        }
                     </ul>
                 </div>
             </div>
