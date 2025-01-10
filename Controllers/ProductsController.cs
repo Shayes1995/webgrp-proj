@@ -12,6 +12,7 @@ public class ProductsController(ApplicationDbContext context) : Controller
     
     public async Task<IActionResult> Index()
     {
+         ViewData["ActivePage"] = "Products";
         var products = await context.Products!
         .Include(p => p.Category).ToListAsync();
 

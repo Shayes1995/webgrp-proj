@@ -1,0 +1,16 @@
+.navbar-nav {
+    color: black;
+}
+
+.navbar-nav .nav-link {
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: lightskyblue;
+}
+
+.navbar-nav .nav-link.active {
+    text-decoration: underline;
+    color: purple;
+}

@@ -29,7 +29,9 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <!--<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>-->
+                            <a class="nav-link @(ViewData["ActivePage"] == "Home" ? "active" : "")" href="@Url.Action("Index", "Home")">Home</a>
+
                         </li>
                         <!--<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home"
@@ -38,14 +40,18 @@
                         <!--Länk till Products och category i menyn -->
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products"
-                                asp-action="Index">Products</a>
+                            <!--<a class="nav-link text-dark" asp-area="" asp-controller="Products"
+                                asp-action="Index">Products</a>-->
+                                <a class="nav-link @(ViewData["ActivePage"] == "Products" ? "active" : "")" href="@Url.Action("Index", "Products")">Products</a>
+    
                         </li>
                         @if (isAdmin)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Category"
-                                    asp-action="Index">Category</a>
+                                @*<a class="nav-link text-dark" asp-area="" asp-controller="Category"
+                                    asp-action="Index">Category</a>*@
+                                    <a class="nav-link @(ViewData["ActivePage"] == "Categories" ? "active" : "")" href="@Url.Action("Index", "Category")">Category</a>
+
                             </li>
                         }
                         @if (!User.Identity?.IsAuthenticated ?? false)
@@ -63,8 +69,10 @@
                         @if (isUser && !isAdmin)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">My
-                                    Shopping List</a>
+                                @*<a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">My
+                                    Shopping List</a>*@
+                                <a class="nav-link @(ViewData["ActivePage"] == "User" ? "active" : "")" asp-area="" asp-controller="User" asp-action="Index">My Shopping List</a>
+                                    
                             </li>
 
                         }

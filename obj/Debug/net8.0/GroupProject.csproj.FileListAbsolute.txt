@@ -256,3 +256,6 @@ C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\GroupProject.pd
 C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\GroupProject.genruntimeconfig.cache
 C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\ref\GroupProject.dll
 C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\GroupProject.sourcelink.json
+C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\bin\Debug\net8.0\GroupProject.staticwebassets.endpoints.json
+C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Shaya\Desktop\webgrp-proj\GroupProject\obj\Debug\net8.0\staticwebassets\msbuild.GroupProject.Microsoft.AspNetCore.StaticWebAssetEndpoints.props

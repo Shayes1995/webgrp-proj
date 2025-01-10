@@ -12,6 +12,7 @@ public class CategoryController(ApplicationDbContext context) : Controller
     [Authorize(Roles = RoleConstants.Admin)]
     public async Task<IActionResult> Index()
     {
+        ViewData["ActivePage"] = "Categories";
         var categories = await context.Categories!.ToListAsync();
         var vm = new CategoryIndexVm { Categories = categories };
         return View(vm);

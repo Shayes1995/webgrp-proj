@@ -1,69 +1,89 @@
-@model ProductsIndexVm;
-@inject UserService UserService;
-@{
-    var isAdmin = await UserService.IsAdminAsync();
-    var isUser = User.Identity?.IsAuthenticated ?? false;
-}
+<!DOCTYPE html>
+<html lang="en">
 
-<h1>Products</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
+    <title>Document</title>
+</head>
 
-<p>Here we will list all products</p>
+<body>
 
-<!-- <a href="/Products/Create">Create new product</a> -->
-@if (isAdmin)
-{
-    <p>
-        @Html.ActionLink("Create new product", "Create")
-    </p>
-}
+    @model ProductsIndexVm;
+    @inject UserService UserService;
+    @{
+        var isAdmin = await UserService.IsAdminAsync();
+        var isUser = User.Identity?.IsAuthenticated ?? false;
+    }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Category</th>
-        </tr>
-    </thead>
-    <tbody>
+    <h1>Products</h1>
+
+    <p>Here we will list all products</p>
+
+    <!-- <a href="/Products/Create">Create new product</a> -->
+    @if (isAdmin)
+    {
+        <p>
+            @Html.ActionLink("Create new product", "Create")
+        </p>
+    }
+
+    <div class="cards-container-main">
+
         @foreach (var product in Model.Product)
         {
-            <tr>
-                <td>@product.Id</td>
-                <td>
-                    @if (isAdmin)
-                    {
-                        <a asp-action="Edit" asp-route-id="@product.Id">
-                            @product.Name
-                        </a>
-                    }
-                    else
-                    {
-                        @product.Name
-                    }
-                </td>
-                <td>@product.Price</td>
-                <td>@product.Description</td>
-                <td>@product.Category?.Name</td>
+            <div class="cards">
+                <div class="img-container">
+                    <img src="@product.Imageurl" alt="product image">
+                </div>
+                <div class="desc-box">
+
+                    <div class="box">
+                        <p>
+                            @if (isAdmin)
+                            {
+                                <a asp-action="Edit" asp-route-id="@product.Id">
+                                    @product.Name
+                                </a>
+                            }
+                            else
+                            {
+
+                            <p class="t-title">
+                                Name: @product.Name
+                            </p>
+                            }
+                        </p>
+                        <p>Price: @product.Price kr</p>
+                        <p>Description: @product.Description</p>
+                        <p>Category: @product.Category?.Name</p>
+                    </div>
+
+                </div>
+
                 @if (isAdmin)
                 {
-                    <td><button type="button" class="btn btn-danger">
+                    <div><button type="button" class="btn btn-danger">
                             <a asp-action="Delete" asp-route-id="@product.Id"
                                 style="color: white; text-decoration: none;">Delete</a>
-                        </button></td>
+                        </button></div>
                 }
                 @if (isUser && !isAdmin)
                 {
-                    <td>
+                    <div>
                         <form asp-action="AddToMyList" asp-controller="User" method="post">
                             <input type="hidden" name="productId" value="@product.Id">
                             <button type="submit" class="btn btn-primary">Add to list</button>
                         </form>
-                    </td>
+                    </div>
                 }
-            </tr>
+            </div>
         }
-    </tbody>
-</table>
+
+    </div>
+
+
+</body>
+
+</html>

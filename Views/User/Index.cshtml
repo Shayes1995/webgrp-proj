@@ -1,61 +1,101 @@
-@model GroupProject.ViewModels.UserListIndexVm;
-@inject UserService UserService;
+<!DOCTYPE html>
+<html lang="en">
 
-@* <!-- @model IEnumerable<GroupProject.Models.UserShoppingList> --> *@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/cart.css" asp-append-version="true" />
+    <title>Document</title>
+</head>
 
-@{
-    var user = await UserService.IsNormalUserAsync();
-}
+<body class="body-container">
 
-@if (Model.UserShoppingLists.Count > 0)
-{
-    <p>List has products</p>
-}
-else if (Model.UserShoppingLists.Count == 0)
-{
-    <p>List is empty</p>
-}
+    @model GroupProject.ViewModels.UserListIndexVm;
+    @inject UserService UserService;
 
-<h1>Your Shopping List</h1>
+    @* <!-- @model IEnumerable<GroupProject.Models.UserShoppingList> --> *@
 
-<p>Here are all the products you have added to your shopping list.</p>
+    @{
+        var user = await UserService.IsNormalUserAsync();
+        decimal totalPrice = 0;
+    }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Product Id</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model.UserShoppingLists)
-        {
-            <tr>
-                <td>@product.ProductId</td>
-                <td>@product.Product?.Name</td>
-                <td>@product.Product?.Price</td>
-                <td>@product.Product?.Description</td>
-                <td>@product.Product?.Category?.Name</td>
-                <td>@product.Quantity</td>
-                <td>
-                    <form asp-action="AddToMyList" method="post" style="display:inline;">
-                        <input type="hidden" name="productId" value="@product.ProductId" />
-                        <button type="submit" class="btn btn-success">+</button>
-                    </form>
-                    <form asp-action="DecreaseQuantity" method="post" style="display:inline;">
-                        <input type="hidden" name="productId" value="@product.ProductId" />
-                        <button type="submit" class="btn btn-warning">-</button>
-                    </form>
-                    <form asp-action="Delete" method="post" style="display:inline;">
-                        <input type="hidden" name="productId" value="@product.ProductId" />
-                        <button type="submit" class="btn btn-danger">Remove</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    @if (Model.UserShoppingLists.Count == 0)
+    {
+        <p>List is empty</p>
+    }
+    <div class="main">
+        <div class="desc">
+            <h1>Your Shopping List</h1>
+
+            <p>Here are all the products you have added to your shopping list.</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit porro quis praesentium veritatis
+            repellat quia quod saepe laborum minus omnis possimus sint, esse est similique quas. Eum voluptas sed ut.</p>
+        </div>
+        <div class="r">
+            <div class="thead-body">
+
+                <table class="table">
+                    <div>
+                        <tr>
+                            <th>Product Id</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </div>
+                    <tbody>
+                        @foreach (var product in Model.UserShoppingLists)
+                        {
+                            var productTotal = product.Product?.Price * product.Quantity ?? 0;
+                            totalPrice += productTotal;
+
+                            <tr>
+                                <td>@product.ProductId</td>
+                                <td>@product.Product?.Name</td>
+                                <td>@product.Product?.Price</td>
+                                <td>@product.Product?.Description</td>
+                                <td>@product.Product?.Category?.Name</td>
+                                <td>@product.Quantity</td>
+                                <td>@(product.Product?.Price * product.Quantity ?? 0)</td>
+                                <td class="td-form">
+                                    <form asp-action="AddToMyList" method="post">
+                                        <input type="hidden" name="productId" value="@product.ProductId" />
+                                        <button type="submit" class="btn btn-success">+</button>
+                                    </form>
+                                    <form asp-action="DecreaseQuantity" method="post">
+                                        <input type="hidden" name="productId" value="@product.ProductId" />
+                                        <button type="submit" class="btn btn-warning">-</button>
+                                    </form>
+                                    <form asp-action="Delete" method="post">
+                                        <input type="hidden" name="productId" value="@product.ProductId" />
+                                        <button type="submit" class="btn btn-danger">Remove</button>
+                                    </form>
+                                </td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="total-price">
+
+                <h3>Total Price: @totalPrice</h3>
+                <button>Checkout</button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

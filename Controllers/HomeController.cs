@@ -15,11 +15,13 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        ViewData["ActivePage"] = "Home";
         return View();
     }
 
     public IActionResult Privacy()
     {
+        ViewData["ActivePage"] = "AllPages";
         return View();
     }
 
@@ -29,3 +31,4 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
+

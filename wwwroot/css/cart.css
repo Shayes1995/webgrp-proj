@@ -1,0 +1,48 @@
+.thead-body {
+    max-width: 80rem;
+    padding: 10px;
+
+
+}
+
+.main {
+    display: flex;
+
+    flex-direction: column;
+
+
+}
+
+.desc {
+    width: 100%;
+    padding: 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    display: inline-block;
+}
+
+.td-form {
+
+    display: flex;
+}
+
+form button {
+    margin-right: .5rem;
+}
+
+.total-price button {
+    width: 8rem;
+    padding: .5rem;
+    background-color: rgb(103, 103, 255);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+
+}

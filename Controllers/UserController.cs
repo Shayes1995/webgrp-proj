@@ -20,6 +20,7 @@ namespace GroupProject.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewData["ActivePage"] = "User";
             var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
